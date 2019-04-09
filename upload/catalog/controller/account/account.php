@@ -1,6 +1,15 @@
 <?php
 class ControllerAccountAccount extends Controller {
 	public function index() {
+		$data = array(
+			'column_left' => $this->load->controller('common/column_left'),
+			'column_right' => $this->load->controller('common/column_right'),
+			'content_top' => $this->load->controller('common/content_top'),
+			'content_bottom' => $this->load->controller('common/content_bottom'),
+			'footer' => $this->load->controller('common/footer'),
+			'header' => $this->load->controller('common/header')
+		);
+		
 		if (!$this->customer->isLogged()) {
 			$this->session->data['redirect'] = $this->url->link('account/account', 'language=' . $this->config->get('config_language'));
 
@@ -82,14 +91,7 @@ class ControllerAccountAccount extends Controller {
 		} else {
 			$data['tracking'] = '';
 		}
-
-		$data['column_left'] = $this->load->controller('common/column_left');
-		$data['column_right'] = $this->load->controller('common/column_right');
-		$data['content_top'] = $this->load->controller('common/content_top');
-		$data['content_bottom'] = $this->load->controller('common/content_bottom');
-		$data['footer'] = $this->load->controller('common/footer');
-		$data['header'] = $this->load->controller('common/header');
-
+		
 		$this->response->setOutput($this->load->view('account/account', $data));
 	}
 
